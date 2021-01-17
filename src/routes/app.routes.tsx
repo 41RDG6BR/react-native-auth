@@ -6,9 +6,9 @@ import Dashboard from '../pages/Dashboard'
 const AppStack = createStackNavigator();
 
 const AppRoutes: React.FC = () => (
-  <AuthStack.Navigator>
-    <AuthStack.Screen name="Dashboard" component={Dashboard} />
-  </AuthStack.Navigator>
+  <AppStack.Navigator>
+    <AppStack.Screen name="Dashboard" component={Dashboard} />
+  </AppStack.Navigator>
 )
 
 export default AppRoutes;
