@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react'
 import  AsyncStorage  from '@react-native-community/async-storage'
 import * as auth from '../services/auth'
+import api from '../services/api'
+// import api from '../services/api'
 
 interface AuthContextData {
   signed: boolean;
@@ -21,7 +23,9 @@ export const AuthProvider: React.Fc = ({children}) => {
 
       const storagedUser = await AsyncStorage.getItem('@RNAuth:user')
       const storagedToken = await AsyncStorage.getItem('@RNAuth:token')
-     
+
+      //api.defaults.headers.Authorization = `Bearer ${storagedToken}`
+      
       if(storagedUser && storagedToken) {
         setUser(JSON.parse(storagedUser))
         setLoading(false)
@@ -35,7 +39,9 @@ export const AuthProvider: React.Fc = ({children}) => {
     const response = await auth.signIn();
     // console.log(response.user)
     setUser(response.user);
-
+    
+    //api.defaults.headers['Authorization'] = `Bearer ${response.token}`
+    //a partir da auth do user na app, em toda a req para api é enviado header auth e token
     await AsyncStorage.setItem('@RNAuth:user', JSON.stringify(response.user))
     await AsyncStorage.setItem('@RNAuth:token', response.token)
   }
@@ -46,7 +52,7 @@ export const AuthProvider: React.Fc = ({children}) => {
     })
   }
   // const signOut = async () => {
-  //   // console.log(response.user)
+  //   await AsyncStorage.clear()
   //   setUser(null);
   // }
 
