@@ -1,14 +1,14 @@
 import React, {useContext} from 'react'
 import { View, Button, Text } from 'react-native'
-// import { signIn } from '../../services/auth'
-import AuthContext from '../../contexts/auth'
+import list from '../../services/api'
+import useAuth from '../../hooks/auth'
 
 const styles= {
   container: {flex: 1, justifyContent: 'center'}
 }
 const Dashboard: React.FC = () => {
 
-  const {signOut} = useContext(AuthContext)
+  const {signOut} = useAuth()
 
   function handleSignOut() {
   // const res = await signIn()
@@ -18,6 +18,9 @@ const Dashboard: React.FC = () => {
 
 return (
   <View>
+    <Text>
+      {list}
+    </Text>
   <Button
   onPress={handleSignOut}
   title="Sign out"
